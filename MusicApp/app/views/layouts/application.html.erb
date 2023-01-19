@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MusicApp</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application" %>
+  </head>
+
+  <body>
+  <% if logged_in? %>
+    <h2>Welcome, <%= current_user.email %>!</h2>
+    <form action="<%= session_url %>" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" value= "Logout">
+    </form>
+  <% else %>
+      <a href="<%= new_user_url %>">Sign up Form</a>
+      <a href="<%= new_session_url %>">Sign in Form</a>
+  <% end %>
+  <%= flash[:errors] %>
+
+  <%= yield %>
+  </body>
+</html>
